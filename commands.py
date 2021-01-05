@@ -84,6 +84,7 @@ async def release_puzzle(message,msg):
     else:
       embed.description = puzzle
     puzzle_channel_id = int(os.getenv('PUZZLE_CHANNEL'))
+    embed.set_footer(text='DM this bot your answer to get puzzle points :)')
     await message.guild.get_channel(puzzle_channel_id).send(embed=embed)
     await message.delete()
 
