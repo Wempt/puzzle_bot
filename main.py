@@ -1,24 +1,3 @@
-# TODO
-# Figure out flask to control bot from webpage
-# Set puzzle on webpage and store in db
-# ** done ** set up dm answer handler and point giver
-# **done i think** leaderboard?
-# add pages to leader board and an easter egg - number
-# ** done ** rank command
-# **ezpz** timing puzzle solving
-# ** done, have to update guild manually ** channel for puzzle # release and announce time solves
-# ** done ** clean dead user/guilds
-# ** done ** add users and guilds as they join
-# blacklist for solving puzzles
-# ** done until new commands are added ** help command
-# ** mostly done ** make embeds nicer
-# error handling :/
-# info command
-# **done** time command
-# gift command?
-# ** fixed ** fix nick thing
-
-
 import discord
 import os
 from replit import db
