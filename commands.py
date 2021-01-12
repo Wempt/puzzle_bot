@@ -182,7 +182,7 @@ async def rank(message, msg):
   
 async def help(message,msg):
   prefix = db['prefix'+str(message.guild.id)]
-  embed = discord.Embed(description=f'**{prefix}help:** displays this message with a list of all commands\n**{prefix}puzzlepoints/pps:** Displays how many puzzle points you have\n**{prefix}time:** Displays the time you solved the current puzzle in\n**{prefix}top:** shows the leaderboard for puzzle points\n**{prefix}toptime/tt:** shows the leaderboard for the solve time of the current puzzle\n**{prefix}rank:** shows your current rank with regards to puzzle points\n', color=message.author.color)
+  embed = discord.Embed(description=f'**{prefix}help:** displays this message with a list of all commands\n**{prefix}info:** displays some information about the bot\n**{prefix}puzzlepoints/pps:** Displays how many puzzle points you have\n**{prefix}time:** Displays the time you solved the current puzzle in\n**{prefix}top:** shows the leaderboard for puzzle points\n**{prefix}toptime/tt:** shows the leaderboard for the solve time of the current puzzle\n**{prefix}rank:** shows your current rank with regards to puzzle points\n', color=message.author.color)
   embed.set_author(name='Commands:', icon_url=str(message.author.avatar_url))
   await message.channel.send(embed=embed)
 
