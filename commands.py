@@ -23,6 +23,8 @@ async def command_handler(message):
     await rank(message, msg)
   elif msg.startswith('help'):
     await help(message, msg)
+  elif msg.startswith('info'):
+    await info(message, msg)
   #elif msg.startswith('setpps'):
     #temp for testing i think
     #await setpps(message,msg)
@@ -183,6 +185,13 @@ async def help(message,msg):
   embed = discord.Embed(description=f'**{prefix}help:** displays this message with a list of all commands\n**{prefix}puzzlepoints/pps:** Displays how many puzzle points you have\n**{prefix}time:** Displays the time you solved the current puzzle in\n**{prefix}top:** shows the leaderboard for puzzle points\n**{prefix}toptime/tt:** shows the leaderboard for the solve time of the current puzzle\n**{prefix}rank:** shows your current rank with regards to puzzle points\n', color=message.author.color)
   embed.set_author(name='Commands:', icon_url=str(message.author.avatar_url))
   await message.channel.send(embed=embed)
+
+async def info(message,msg):
+  embed = discord.Embed(description=f'This bot was created by Wempt during winter break so that they didn\'t forget how to "do the code". The basics are that I will release a puzzle made by me or some other smart person, at which point people will be able to solve and dm the answer to this bot and recieve points based on the position they finished in. You can view the code for this bot at https://github.com/Wempt/puzzle_bot. Don\'t mind how messy the code is. ps don\'t bother looking in the github for puzzle answers you won\'t find them there ;)', color=message.author.color)
+  embed.set_footer(text=' If you have any suggestions for features or find any bugs feel free to dm me aka Wempt :))')
+  embed.set_author(name='Bot Information', icon_url=str(message.author.avatar_url))
+  await message.channel.send(embed=embed)
+
 
 # for testing
 async def setpps(message,msg):
