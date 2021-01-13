@@ -15,12 +15,19 @@ class DM(commands.Cog):
       return True
     return False
 
+  def blacklist(ctx):
+    blacklist = os.getenv('BLACKLIST').split(',')
+    if str(ctx.author.id) not in blacklist:
+      return True
+    return False
+
   @commands.command(aliases=['c'])
   @commands.check(is_dm)
+  @commands.check(blacklist)
   async def check(self, ctx, answer, current_puzzle=db['current_puzzle']):
     """Allows you to check your answer to the current puzzle, as well as older puzzles."""
     if answer != os.getenv(f'ANSWER{current_puzzle}'):
-      await ctx.send('nope :)')
+      await ctx.send('Not the correct answer sorry :/.')
       return
 
     #for testing v
