@@ -35,3 +35,16 @@ def get_name(member):
   if member.nick == None:
     return member.name
   return member.nick
+
+def position(place):
+  last_digit = str(place)[(len(str(place))-1)]
+  suffix = 'th'
+  if place == 11 or place == 12 or place == 13:
+    suffix = 'th'
+  elif last_digit == '1':
+    suffix = 'st'
+  elif last_digit == '2':
+    suffix = 'nd'
+  elif last_digit == '3':
+    suffix = 'rd'
+  return f'{place}{suffix}'

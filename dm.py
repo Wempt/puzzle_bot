@@ -1,7 +1,7 @@
 import os
 import discord
 import time
-from utils import seconds_to_dd_hh_mm_ss, edit_db_dict, update_db_dict, give_points, get_name
+from utils import seconds_to_dd_hh_mm_ss, edit_db_dict, update_db_dict, give_points, get_name, position
 from replit import db
 
 async def dm_handler(message, client):
@@ -35,10 +35,10 @@ async def correct(message, msg, client):
     elif place == 1:
       points = 7
     give_points(f'member{message.author.id}', points)
-    await message.channel.send(f'Solved in {time_taken}. Awarded {points} puzzle points for finishing {place}')
+    await message.channel.send(f'Solved in {time_taken}. Awarded {points} puzzle points for finishing {position(place)}')
     puzzle_channel_id = int(os.getenv('PUZZLE_CHANNEL'))
 
-    embed = discord.Embed(description=f'Solved in `{time_taken}`. Awarded `{points}` puzzle points for finishing `{place}`',color=client.get_guild(int(os.getenv('GUILD'))).get_member(message.author.id).color)
+    embed = discord.Embed(description=f'Solved in `{time_taken}`. Awarded `{points}` puzzle points for finishing `{position(place)}`',color=client.get_guild(int(os.getenv('GUILD'))).get_member(message.author.id).color)
     embed.set_author(name=get_name(client.get_guild(int(os.getenv('GUILD'))).get_member(message.author.id)), icon_url=message.author.avatar_url)
     await client.get_guild(int(os.getenv('GUILD'))).get_channel(puzzle_channel_id).send(embed=embed)
 
