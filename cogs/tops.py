@@ -45,7 +45,7 @@ class Tops(commands.Cog):
     await ctx.channel.send(embed=embed)
 
   @commands.command(aliases=['tt'])
-  async def toptime(self, ctx, page=1):
+  async def toptime(self, ctx, page=1, puzzle=db['current_puzzle']):
     """Time Leaderboard\nShows the leaderboard with regards to the solve time of the current puzzle. Can also specify a page number."""
     if page < 0:
       embed = discord.Embed(description='p̶͙̟̲̱̭̮̃̋͒͊̈̿̑b̸͙̘͈̼͙̃̉̾̋͂͗̊͜a̷͉͎̟̰̪͊̐̌d̷̹̩̮̘͑̈́̽̑̎̚ḑ̴̱̘͈͌͐̉͘ǐ̶̞̺̟̺͓̳̐̈́͂̓́ê̴̦̮̞̈́͐͐ ̸͖̕͝w̸̬̲̻̣̒̉̽̄̂a̷̹͐̇̈́̆s̷͍̹͈̗͉̏͌͜ ̴̛̞̣͕̬̅h̸̢͚̘̻͇̪̱͛̿̋̏͒e̷̺̯͇̯̜͚̖̽̋͐͊͝r̷̛͓͓̯̖͚͎̄͐̾͝è̴̛͇̖̣̰̲͎͍̎̀̊̊͝ ̵̨͍̰͆̍͝͝:̵̳̭̥̐̍̿͜͜͠)̵̞̳͈̝̺̜̈́̉͋͜͝)̴̙͒̔͑̈́)̶̯͌̆̄̿)̷̘̘͙̖͈̟̓͛̚͜)̵̟̟̞̼̂̆͂͘)̸̡͎̞̱̪͓̃̾̕͜)̴̧̮͇̈́̍͊͌',color=ctx.author.color)
@@ -53,7 +53,7 @@ class Tops(commands.Cog):
       embed.set_footer(text=f'Page #{page}')
       await ctx.send(embed=embed)
       return
-    current_puzzle = db['current_puzzle']
+    current_puzzle = puzzle
     top = db[f'puzzle{current_puzzle}top']
     keys = list(top.keys())
     result = ''

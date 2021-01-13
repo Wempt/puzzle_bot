@@ -15,17 +15,17 @@ class Events(commands.Cog):
     print(f'{self.client.user} connected')
 
   @commands.Cog.listener()
-  async def on_member_join(member):
-    member_id = member.id
-    dic = {'name':str(member.name), 'puzzle_points':0, 'solved':False}
-    if('member'+str(member_id)) not in db.keys() and not member.bot:
+  async def on_member_join(self, ctx):
+    member_id = ctx.author.id
+    dic = {'name':str(ctx.author.name), 'puzzle_points':0, 'solved':False}
+    if('member'+str(member_id)) not in db.keys() and not ctx.author.bot:
       db['member'+str(member_id)] = dic
       print(db['member'+str(member_id)])
   
   @commands.Cog.listener()
-  async def on_member_remove(member):
-    member_id = member.id
-    if('member'+str(member_id)) in db.keys() and not member.bot:
+  async def on_member_remove(self, ctx):
+    member_id = ctx.author.id
+    if('member'+str(member_id)) in db.keys() and not ctx.author.bot:
       del db['member'+str(member_id)]
 
 
