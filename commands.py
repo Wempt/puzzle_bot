@@ -17,8 +17,8 @@ async def command_handler(message):
     await release_puzzle(message,msg)
   elif msg.startswith('tt') or msg.startswith('toptime'):
     await top_time(message,msg)
-  elif msg.startswith('top'):
-    await top_points(message,msg)
+  #elif msg.startswith('top'):
+    #await top_points(message,msg)
   elif msg.startswith('rank'):
     await rank(message, msg)
   elif msg.startswith('help'):

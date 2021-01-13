@@ -32,7 +32,7 @@ def give_points(dbkey, points):
   db[dbkey] = edit
 
 def get_name(member):
-  if member.nick == None:
+  if member.nick is None:
     return member.name
   return member.nick
 
@@ -48,3 +48,26 @@ def position(place):
   elif last_digit == '3':
     suffix = 'rd'
   return f'{place}{suffix}'
+
+def clear_db():
+  for key in db.keys():
+    print('deleted ' + str(key) + ' ' + str(db[key]))
+    del db[key]
+
+def startup(client):
+  setup_guild(client)
+  setup_user(client)
+
+def setup_guild(client):
+  for guild in client.guilds:
+    id = guild.id
+    if ('prefix' + str(id)) not in db.keys():
+      db['prefix' + str(id)] = '$'
+
+def setup_user(client):
+  for member in client.get_all_members():
+    member_id = member.id
+    dic = {'name':str(member.name), 'puzzle_points':0, 'solved':False}
+    if('member'+str(member_id)) not in db.keys() and not member.bot:
+      db['member'+str(member_id)] = dic
+      print(db['member'+str(member_id)])
