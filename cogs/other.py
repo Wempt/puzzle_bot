@@ -25,6 +25,9 @@ class Other(commands.Cog):
     db[f'puzzle{puzzle_number}top'] = dict()
     for member in db.prefix('member'):
       edit_db_dict(member, 'solved', False)
+      id = member[6:]
+      if ctx.guild.get_role(int(os.getenv('SOLVED'))) in ctx.guild.get_member(int(id)).roles:
+        await ctx.guild.get_member(int(id)).remove_roles(ctx.guild.get_role(int(os.getenv('SOLVED'))))
     puzzle = os.getenv(f'PUZZLE{puzzle_number}')
     embed = discord.Embed(title=f'puzzle #{puzzle_number}',color=discord.Color.gold())
     if puzzle.startswith('https://i.imgur.com'):
@@ -32,10 +35,29 @@ class Other(commands.Cog):
     else:
       embed.description = puzzle
     puzzle_channel_id = int(os.getenv('PUZZLE_CHANNEL'))
-    embed.set_footer(text=f'DM this bot $c \'your answer here\' {puzzle_number} to get puzzle points :)')
+    embed.set_footer(text=f'DM this bot $c \"your answer here\" {puzzle_number} to get puzzle points :). Make sure you include the quotes around your answer.')
     await ctx.guild.get_channel(puzzle_channel_id).send(embed=embed)
     await ctx.guild.get_channel(puzzle_channel_id).last_message.pin()
     await ctx.message.delete()
+
+  @commands.command(aliases=['rpp'],hidden='True')
+  @commands.check(is_me)
+  async def reset_puzzle_points(self, ctx):
+    for key in db.prefix('member'):
+      edit_db_dict(key,'puzzle_points',0)
+
+  @commands.command(aliases=['rsp'],hidden='True')
+  @commands.check(is_me)
+  async def reset_solved_puzzles(self, ctx):
+    for key in db.prefix('member'):
+      edit_db_dict(key,'puzzle_solved',0)
+
+  @commands.command(aliases=['rst'],hidden='True')
+  @commands.check(is_me)
+  async def reset_solve_time(self, ctx, puzzle=db['current_puzzle']):
+    for key in db.prefix('member'):
+      edit_db_dict(key,'solved',False)
+    db[f'puzzle{puzzle}top'] = dict()
 
   @commands.command()
   async def info(self, ctx):

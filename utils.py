@@ -55,19 +55,12 @@ def clear_db():
     del db[key]
 
 def startup(client):
-  setup_guild(client)
   setup_user(client)
-
-def setup_guild(client):
-  for guild in client.guilds:
-    id = guild.id
-    if ('prefix' + str(id)) not in db.keys():
-      db['prefix' + str(id)] = '$'
 
 def setup_user(client):
   for member in client.get_all_members():
     member_id = member.id
-    dic = {'name':str(member.name), 'puzzle_points':0, 'solved':False}
+    dic = {'name':str(member.name), 'puzzle_points':0, 'solved':False, 'puzzle_solved':0}
     if('member'+str(member_id)) not in db.keys() and not member.bot:
       db['member'+str(member_id)] = dic
       print(db['member'+str(member_id)])

@@ -52,15 +52,18 @@ class DM(commands.Cog):
       elif place == 1:
         points = 7
       give_points(f'member{ctx.author.id}', points)
+      edit_db_dict(f'member{ctx.author.id}','puzzle_solved',(db[f'member{ctx.author.id}']['puzzle_solved']+1))
       await ctx.send(f'Solved in {time_taken}. Awarded {points} puzzle points for finishing {position(place)}')
       puzzle_channel_id = int(os.getenv('PUZZLE_CHANNEL'))
-
       embed = discord.Embed(description=f'Solved in `{time_taken}`. Awarded `{points}` puzzle points for finishing `{position(place)}`',color=self.client.get_guild(int(os.getenv('GUILD'))).get_member(ctx.author.id).color)
       embed.set_author(name=get_name(self.client.get_guild(int(os.getenv('GUILD'))).get_member(ctx.author.id)), icon_url=ctx.author.avatar_url)
       await self.client.get_guild(int(os.getenv('GUILD'))).get_channel(puzzle_channel_id).send(embed=embed)
+      role = self.client.get_guild(int(os.getenv('GUILD'))).get_role(int(os.getenv('SOLVED')))
+      await self.client.get_guild(int(os.getenv('GUILD'))).get_member(ctx.author.id).add_roles(role)
+
 
     else:
       await ctx.send('You already solved this but nice try :)')
 
 def setup(client):
-  client.add_cog(DM(client))
+  client.add_cog(DM(client)) 

@@ -1,5 +1,4 @@
 from replit import db
-import discord
 from discord.ext import commands
 from utils import startup, clear_db
 
@@ -17,7 +16,7 @@ class Events(commands.Cog):
   @commands.Cog.listener()
   async def on_member_join(self, ctx):
     member_id = ctx.id
-    dic = {'name':str(ctx.name), 'puzzle_points':0, 'solved':False}
+    dic = {'name':str(ctx.name), 'puzzle_points':0, 'solved':False, 'puzzle_solved':0}
     if('member'+str(member_id)) not in db.keys() and not ctx.bot:
       db['member'+str(member_id)] = dic
       print(db['member'+str(member_id)])
