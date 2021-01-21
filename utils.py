@@ -32,6 +32,35 @@ def give_points(dbkey, points):
   db[dbkey] = edit
 
 def get_name(member):
-  if member.nick == None:
+  if member.nick is None:
     return member.name
   return member.nick
+
+def position(place):
+  last_digit = str(place)[(len(str(place))-1)]
+  suffix = 'th'
+  if place == 11 or place == 12 or place == 13:
+    suffix = 'th'
+  elif last_digit == '1':
+    suffix = 'st'
+  elif last_digit == '2':
+    suffix = 'nd'
+  elif last_digit == '3':
+    suffix = 'rd'
+  return f'{place}{suffix}'
+
+def clear_db():
+  for key in db.keys():
+    print('deleted ' + str(key) + ' ' + str(db[key]))
+    del db[key]
+
+def startup(client):
+  setup_user(client)
+
+def setup_user(client):
+  for member in client.get_all_members():
+    member_id = member.id
+    dic = {'name':str(member.name), 'puzzle_points':0, 'solved':False, 'puzzle_solved':0}
+    if('member'+str(member_id)) not in db.keys() and not member.bot:
+      db['member'+str(member_id)] = dic
+      print(db['member'+str(member_id)])
