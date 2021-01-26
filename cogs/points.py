@@ -28,6 +28,8 @@ class Points(commands.Cog):
       member = ctx.guild.get_member(member_id)
       if member == None:
         continue
+      if db[key]['puzzle_points'] ==0:
+        continue
       top.update({member.id:db[key]['puzzle_points']})
     sort_top = sorted(top.items(), key=lambda x: x[1], reverse=True)
     counter = 1
@@ -57,6 +59,8 @@ class Points(commands.Cog):
       member_id = int(key[6:])
       member = ctx.guild.get_member(member_id)
       if member == None:
+        continue
+      if db[key]['puzzle_points'] ==0:
         continue
       top.update({member.id:db[key]['puzzle_points']})
     sort_top = sorted(top.items(), key=lambda x: x[1], reverse=True)

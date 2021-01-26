@@ -29,6 +29,8 @@ class Puzzles_Solved(commands.Cog):
       member = ctx.guild.get_member(member_id)
       if member == None:
         continue
+      if db[key]['puzzle_solved'] ==0:
+        continue
       top.update({member.id:db[key]['puzzle_solved']})
     sort_top = sorted(top.items(), key=lambda x: x[1], reverse=True)
     counter = 1
@@ -59,6 +61,8 @@ class Puzzles_Solved(commands.Cog):
       member_id = int(key[6:])
       member = ctx.guild.get_member(member_id)
       if member == None:
+        continue
+      if db[key]['puzzle_solved'] ==0:
         continue
       top.update({member.id:db[key]['puzzle_solved']})
     sort_top = sorted(top.items(), key=lambda x: x[1], reverse=True)
